@@ -909,8 +909,6 @@ pub fn readvAdvanced(c: *Client, stream: std.net.Stream, iovecs: []const std.pos
         const legacy_version = mem.readInt(u16, frag[in..][1..3], .big);
         const record_len = mem.readInt(u16, frag[in..][3..5], .big);
         if (record_len > max_ciphertext_len) return error.TlsRecordOverflow;
-        if (record_len > max_cleartext_len)
-            std.debug.print("{}", .{record_len});
         in += 5;
         const end = in + record_len;
         assert(end <= frag.len);
